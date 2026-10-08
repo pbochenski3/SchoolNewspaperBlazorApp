@@ -3,7 +3,15 @@
 @inject IArticleService articleService
 
 <div class="add-article-form">
+
     <h1>Dodaj artykul</h1>
+    @if (previewImage != null)
+    {
+        <div class="image-preview">
+            <img src="@previewImage" alt="zdjecie" />
+        </div>
+    }
+    <InputFile OnChange="ChoosePhoto" accept="image/*" />
     <form @onsubmit="AddArticle" @onsubmit:preventDefault>
         <input @bind="title" class="form-control" />
         <textarea @bind="text" class="form-control" />
@@ -16,6 +24,18 @@
     private string title = "";
     private string text = "";
     private string author = "";
+    private string? previewImage;
+    private async Task ChoosePhoto(InputFileChangeEventArgs e)
+    {
+        IBrowserFile file = e.File;
+
+        using var stream = file.OpenReadStream(5 * 1024 * 1024);
+        using var memoryStream = new MemoryStream();
+        await stream.CopyToAsync(memoryStream);
+        byte[] bytes = memoryStream.ToArray();
+        previewImage = $"data:{file.ContentType};base64,{Convert.ToBase64String(bytes)}";
+
+    }
 
     private async Task AddArticle()
     {
