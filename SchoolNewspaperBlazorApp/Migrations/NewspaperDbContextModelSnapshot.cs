@@ -34,6 +34,9 @@ namespace SchoolNewspaperBlazorApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("FileId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
@@ -48,6 +51,24 @@ namespace SchoolNewspaperBlazorApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Articles");
+                });
+
+            modelBuilder.Entity("SchoolNewspaperBlazorApp.Data.MediaFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Files");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 ﻿@using SchoolNewspaperBlazorApp.Data
 @using SchoolNewspaperBlazorApp.Interfaces.Service
 @inject IArticleService articleService
+@inject IFileService fileService
 
 <div class="add-article-form">
 
@@ -25,20 +26,21 @@
     private string text = "";
     private string author = "";
     private string? previewImage;
+    IBrowserFile? file;
     private async Task ChoosePhoto(InputFileChangeEventArgs e)
     {
-        IBrowserFile file = e.File;
-
-        using var stream = file.OpenReadStream(5 * 1024 * 1024);
-        using var memoryStream = new MemoryStream();
-        await stream.CopyToAsync(memoryStream);
-        byte[] bytes = memoryStream.ToArray();
-        previewImage = $"data:{file.ContentType};base64,{Convert.ToBase64String(bytes)}";
-
+        file = e.File;
+        previewImage = await fileService.GetPreviewAsync(file);
     }
 
     private async Task AddArticle()
     {
-        await articleService.AddArticleAsync(title, text, author);
+        int id = 0;
+        if(file != null)
+        {
+        id = await fileService.UploadImage(file);
+        }
+        await articleService.AddArticleAsync(title, text, author,id);
     }
 }
+
