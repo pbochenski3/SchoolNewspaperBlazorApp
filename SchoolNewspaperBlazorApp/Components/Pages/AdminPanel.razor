@@ -14,16 +14,7 @@
     }
     else if (view == 2)
     {
-        <div class="add-article-form">
-            <h1>Dodaj artykul</h1>
-            <form @onsubmit="AddArticle" @onsubmit:preventDefault>
-                Guzik dzieki któremu możemy dodac zdjecie
-                <input @bind="title" class="form-control" />
-                <textarea @bind="text" class="form-control" />
-                <input @bind="author" class="form-control" />
-                <button type="submit" class="btn btn-primary">Dodaj</button>
-            </form>
-        </div>
+      <ArticleForm/>
     }
     @if (view == 0)
     {
@@ -38,15 +29,10 @@
 
 
 @code {
-    private string title = "";
-    private string text = "";
-    private string author = "";
+
     public int view = 0;
     public List<Article> articleList = new List<Article>();
-    private async Task AddArticle()
-    {
-        await articleService.AddArticleAsync(title, text, author);
-    }
+
     public void SetView(int view)
     {
         this.view = view;
