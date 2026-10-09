@@ -5,9 +5,26 @@
 
 @if (article != null)
 {
-    <h1>@article.Title</h1>
-    <p>@article.Text</p>
-    <p>Autor: @article.Author</p>
+    <article class="article-page">
+
+        @if (!string.IsNullOrEmpty(imageUrl))
+        {
+            <div class="article-page__img-wrap">
+                <img src="@imageUrl" alt="@article.Title" class="article-page__img" />
+            </div>
+        }
+
+        <h1 class="article-page__title">@article.Title</h1>
+
+
+        <div class="article-page__content">
+            @article.Text
+        </div>
+
+        <div class="article-page__meta">
+            <span class="article-page__author">@article.Author</span>
+        </div>
+    </article>
 }
 
 @code {
@@ -15,12 +32,25 @@
     public int Id { get; set; }
 
     public Article? article;
+    private string? imageUrl;
 
     [Inject]
-    public IArticleService articleService { get; set; } 
+    public IArticleService articleService { get; set; } = default!;
+
+    [Inject]
+    public IFileService fileService { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
         article = await articleService.GetArticleByIdAsync(Id);
+
+        if (article != null)
+        {
+            var fileName = await fileService.GetFileNameByIdAsync(article.FileId);
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                imageUrl = $"/Images/{fileName}";
+            }
+        }
     }
 }

@@ -8,14 +8,14 @@
         </a>
 
         <div class="navbar-nav ms-4">
-            <a class="nav-link active" href="/">Strona główna</a>
-            <a class="nav-link" href="/aktualnosci">Aktualności</a>
-            <a class="nav-link" href="/wydarzenia">Wydarzenia</a>
-            <a class="nav-link" href="/kontakt">Kontakt</a>
-            <a class="nav-link" href="/adminPanel">Admin Panel</a>
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Strona główna</NavLink>
+            <NavLink class="nav-link" href="/aktualnosci">Aktualności</NavLink>
+            <NavLink class="nav-link" href="/wydarzenia">Wydarzenia</NavLink>
+            <NavLink class="nav-link" href="/kontakt">Kontakt</NavLink>
+            <NavLink class="nav-link" href="/adminPanel">Admin Panel</NavLink>
         </div>
 
-        <form class="d-flex ms-auto" role="search">
+        <form class="btn btn-search" role="search">
             <input class="form-control me-2"
                    type="search"
                    placeholder="Szukaj..."

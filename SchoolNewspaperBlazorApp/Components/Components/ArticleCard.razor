@@ -1,33 +1,44 @@
 ﻿@using SchoolNewspaperBlazorApp.Data
 @using SchoolNewspaperBlazorApp.Interfaces.Service
-@foreach (var article in Articles)
-{
-    @if (permissions == true)
+<div class="article-grid">
+    @foreach (var article in Articles)
     {
-        <div class="card" style="width: 18rem;">
-            <img src="@GetImageUrl(article.FileId)" class="card-img-top img-fluid" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">@article.Title</h5>
-                <p class="card-text">@article.Text</p>
-                <p class="card-author">@article.Author</p>
-                <button class="btn btn-danger" @onclick="() => RemoveArticleByIdAsync(article.Id)">Usun Artykuł</button>
-            </div>
-        </div>
-    }
-    else
-    {
-        <NavLink class="nav-link" href="@($"/article/{article.Id}")">
-            <div class="card" style="width: 18rem;">
-                <img src="@GetImageUrl(article.FileId)" class="card-img-top img-fluid" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">@article.Title</h5>
-                    <p class="card-text">@article.Text</p>
-                    <p class="card-author">@article.Author</p>
+        if (permissions == true)
+        {
+            <div class="article-card">
+                <div class="article-card__img-wrap">
+                    <img src="@GetImageUrl(article.FileId)" class="article-card__img" alt="@article.Title" loading="lazy">
+                </div>
+                <div class="article-card__body">
+                    <h5 class="article-card__title">@article.Title</h5>
+                    <p class="article-card__text">@article.Text</p>
+                    <div class="article-card__footer">
+                        <span class="article-card__author">@article.Author</span>
+                        <button class="btn btn-sm btn-outline-danger" @onclick="() => RemoveArticleByIdAsync(article.Id)">
+                            Usuń artykuł
+                        </button>
+                    </div>
                 </div>
             </div>
-        </NavLink>
+        }
+        else
+        {
+            <NavLink class="article-card article-card--link" href="@($"/article/{article.Id}")">
+                <div class="article-card__img-wrap">
+                    <img src="@GetImageUrl(article.FileId)" class="article-card__img" alt="@article.Title" loading="lazy">
+                </div>
+                <div class="article-card__body">
+                    <h5 class="article-card__title">@article.Title</h5>
+                    <p class="article-card__text">@article.Text</p>
+                    <div class="article-card__footer">
+                        <span class="article-card__author">@article.Author</span>
+                        <span class="article-card__more">Czytaj więcej →</span>
+                    </div>
+                </div>
+            </NavLink>
+        }
     }
-}
+</div>
 
 @code {
     [Parameter]

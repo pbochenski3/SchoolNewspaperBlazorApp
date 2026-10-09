@@ -6,6 +6,18 @@
 @using SchoolNewspaperBlazorApp.Interfaces.Service
 
 <div class="main-block">
+    <div class="admin-toolbar">
+        @if (view == 0)
+        {
+            <button class="btn btn-primary" @onclick="LoadArticleAsync">📋 Panel artykułów</button>
+            <button class="btn btn-primary" @onclick="() => SetView(2)">➕ Dodaj artykuł</button>
+        }
+        else
+        {
+            <button class="btn btn-outline-primary" @onclick="() => SetView(0)">← Wróć</button>
+        }
+    </div>
+
     @if (view == 1)
     {
         <div class="article-panel">
@@ -14,16 +26,7 @@
     }
     else if (view == 2)
     {
-      <ArticleForm/>
-    }
-    @if (view == 0)
-    {
-        <button class="btn btn-primary" @onclick="LoadArticleAsync">Panel artykulow</button>
-        <button class="btn btn-primary" @onclick=" () => SetView(2)">Dodaj artykul</button>
-    }
-    else
-    {
-        <button class="btn btn-primary" @onclick=" () => SetView(0)">Wróc</button>
+        <ArticleForm />
     }
 </div>
 

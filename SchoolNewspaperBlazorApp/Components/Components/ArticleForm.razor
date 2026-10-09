@@ -4,20 +4,29 @@
 @inject IFileService fileService
 
 <div class="add-article-form">
+    <h1 class="add-article-form__title">Dodaj artykuł</h1>
 
-    <h1>Dodaj artykul</h1>
-    @if (previewImage != null)
-    {
+@if (previewImage != null)
+{
         <div class="image-preview">
-            <img src="@previewImage" alt="zdjecie" />
+            <img src="@previewImage" alt="zdjęcie" />
         </div>
-    }
-    <InputFile OnChange="ChoosePhoto" accept="image/*" />
+}
+
+    <label class="form-label">Zdjęcie</label>
+    <InputFile OnChange="ChoosePhoto" accept="image/*" class="form-control mb-3" />
+
     <form @onsubmit="AddArticle" @onsubmit:preventDefault>
-        <input @bind="title" class="form-control" />
-        <textarea @bind="text" class="form-control" />
-        <input @bind="author" class="form-control" />
-        <button type="submit" class="btn btn-primary">Dodaj</button>
+        <label class="form-label">Tytuł</label>
+        <input @bind="title" class="form-control mb-3" placeholder="Wpisz tytuł..." />
+
+        <label class="form-label">Treść</label>
+        <textarea @bind="text" class="form-control mb-3" rows="6" placeholder="Treść artykułu..."></textarea>
+
+        <label class="form-label">Autor</label>
+        <input @bind="author" class="form-control mb-4" placeholder="Imię i nazwisko" />
+
+        <button type="submit" class="btn btn-primary w-100">Dodaj</button>
     </form>
 </div>
 
