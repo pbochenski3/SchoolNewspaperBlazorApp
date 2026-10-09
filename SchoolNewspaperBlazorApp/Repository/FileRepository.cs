@@ -17,7 +17,16 @@ namespace SchoolNewspaperBlazorApp.Repository
                 .OrderByDescending(x => x.Id)
                 .Select(x => x.Id)
                 .FirstOrDefaultAsync();
-            return id++;
+            return id + 1;
+        }
+        public async Task<MediaFile> GetFileByIdAsync(int id)
+        {
+            var fileId = await _context.Files.FirstOrDefaultAsync(a => a.Id == id);
+            if(fileId == null)
+            {
+                throw new Exception("[FileRepository]Brak zdjecia w bazie danych");
+            }
+            return fileId;
         }
         public async Task AddFileAsync(Data.MediaFile file)
         {
