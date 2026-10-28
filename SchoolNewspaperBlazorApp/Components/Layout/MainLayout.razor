@@ -99,6 +99,7 @@
         @Body
     </main>
 
+    ```razor
     <footer class="site-footer">
         <div class="site-footer__inner">
 
@@ -127,12 +128,18 @@
                 </a>
             </nav>
 
-            <span class="site-footer__copyright">
-                © @DateTime.Now.Year ETI
-            </span>
+            <div class="site-footer__bottom">
+                <span class="site-footer__copyright">
+                    © @DateTime.Now.Year ETI
+                </span>
+                <span class="site-footer__credits">
+                    Stworzone podczas praktyk przez klasę 3TA
+                </span>
+            </div>
 
         </div>
     </footer>
+    ```
 </div>
 @code{
     private bool IsLoggedIn;

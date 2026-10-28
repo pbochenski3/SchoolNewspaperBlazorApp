@@ -17,7 +17,7 @@ namespace SchoolNewspaperBlazorApp
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             // Pomocnik do ręcznego założenia konta (np. Master w SQL):
             //   dotnet run -- --hash TwojeHaslo
@@ -106,6 +106,13 @@ namespace SchoolNewspaperBlazorApp
             });
 
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var contextFactory = scope.ServiceProvider
+                    .GetRequiredService<IDbContextFactory<NewspaperDbContext>>();
+
+                await PermissionSeeder.SeedAsync(contextFactory);
+            }
             var isDevelopment = app.Environment.IsDevelopment();
 
             // Configure the HTTP request pipeline.

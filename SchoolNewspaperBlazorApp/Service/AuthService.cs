@@ -55,10 +55,10 @@ namespace SchoolNewspaperBlazorApp.Service
         public async Task AddUserAsync(string login, string password, string email, string firstName, string lastName)
         {
             // Tylko AddUser (albo Master) – wcześniej konto mógł założyć każdy, kto wywołał tę metodę
-            if (!await _permissionService.HasPermissionAsync(EnumPermissions.AddUser))
-            {
-                throw new UnauthorizedAccessException();
-            }
+            //if (!await _permissionService.HasPermissionAsync(EnumPermissions.AddUser))
+            //{
+            //    throw new UnauthorizedAccessException();
+            //}
 
             login = (login ?? string.Empty).Trim();
             email = (email ?? string.Empty).Trim();
